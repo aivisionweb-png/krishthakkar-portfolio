@@ -44,3 +44,5 @@ body::selection{background:var(--red);color:#000}
 .footer-reveal{will-change:transform,opacity}
 @media(max-width:800px){body{cursor:auto}.motion-cursor,.motion-cursor-dot,.motion-cursor-label{display:none}.hero::after{display:none}.portrait-wrap::after{font-size:70px;right:-20px}.timeline::before{left:-10px}}
 @media(prefers-reduced-motion:reduce){body{cursor:auto}.motion-cursor,.motion-cursor-dot,.motion-cursor-label,.loader{display:none!important}.hero::after,.signal::after{animation:none!important}.hero::before{display:none}}
+
+.work-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.project-link{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid currentColor;text-decoration:none;font:500 11px/1 "DM Mono",monospace;letter-spacing:.08em;transition:transform .2s ease,background .2s ease,color .2s ease}.project-link:hover{transform:translateY(-2px);background:#111;color:#fff}@media(max-width:700px){.work-actions{gap:10px}.project-link{padding:7px 9px}}
