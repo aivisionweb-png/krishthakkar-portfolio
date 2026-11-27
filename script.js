@@ -31,3 +31,30 @@ if(!reduce&&window.gsap&&window.ScrollTrigger){
  gsap.to(".contact-title",{y:-55,scale:1.04,ease:"none",scrollTrigger:{trigger:".contact",start:"top bottom",end:"bottom top",scrub:1}});
  $$(".header nav a").forEach(a=>{const id=a.getAttribute("href")?.slice(1),s=id&&$("#"+id);if(s)ScrollTrigger.create({trigger:s,start:"top 45%",end:"bottom 45%",onEnter:()=>a.classList.add("active"),onEnterBack:()=>a.classList.add("active"),onLeave:()=>a.classList.remove("active"),onLeaveBack:()=>a.classList.remove("active")})});
 }else{$$(".about-grid,.fact-row,.work-item,.stack-row,.timeline-row,.recognition,.contact-bottom").forEach(x=>x.classList.add("show"))}
+
+
+/* --- tactile motion layer --- */
+if(!reduce){
+ const visuals=$$(".project-visual");
+ visuals.forEach(v=>{
+   v.addEventListener("pointermove",e=>{
+     const r=v.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+     v.style.setProperty("--mx",(x*18)+"px");v.style.setProperty("--my",(y*18)+"px");
+     const img=v.querySelector("img"); if(img) img.style.transform="translate("+(-x*12)+"px,"+(-y*12)+"px) scale(1.06)";
+   });
+   v.addEventListener("pointerleave",()=>{
+     v.style.setProperty("--mx","0px");v.style.setProperty("--my","0px");
+     const img=v.querySelector("img");if(img) img.style.transform="";
+   });
+ });
+ $$(".hero-links a,.project-link").forEach(btn=>{
+   btn.addEventListener("pointermove",e=>{
+     const r=btn.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)*.12,y=(e.clientY-r.top-r.height/2)*.12;
+     btn.style.transform="translate("+x+"px,"+y+"px)";
+   });
+   btn.addEventListener("pointerleave",()=>btn.style.transform="");
+ });
+ const floaters=$$(".portrait-label,.portrait-stamp");
+ floaters.forEach((el,i)=>gsap.to(el,{y:i?6:-5,rotate:i?-8:2,duration:2.4+i*.4,repeat:-1,yoyo:true,ease:"sine.inOut"}));
+ $$(".fact-row>div").forEach((el,i)=>gsap.to(el,{y:i%2?8:-8,duration:2.2+i*.2,repeat:-1,yoyo:true,ease:"sine.inOut",scrollTrigger:{trigger:".fact-row",start:"top 85%",toggleActions:"play pause resume pause"}}));
+}
