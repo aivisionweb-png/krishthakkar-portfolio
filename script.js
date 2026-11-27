@@ -216,3 +216,33 @@ if(reduce){
 }
 
 nav?.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
+
+
+/* ===== MOBILE CINEMATIC MOTION ===== */
+if(!reduce && window.gsap && window.ScrollTrigger){
+  const mobile=window.matchMedia('(max-width:800px)').matches;
+  if(mobile){
+    const m=gsap.matchMedia();
+    m.add('(max-width:800px)',()=>{
+      gsap.utils.toArray('.hero-meta span,.hero-copy > *,.hero-foot span').forEach((el,i)=>{
+        gsap.from(el,{y:24,opacity:0,delay:i*.05,duration:.65,ease:'power3.out',scrollTrigger:{trigger:'.hero',start:'top top',toggleActions:'play none none reverse'}});
+      });
+      gsap.to('.hero-title',{y:-70,x:10,rotate:-1.5,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.65}});
+      gsap.to('.portrait-wrap',{y:55,x:-8,rotate:4,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+      gsap.to('.portrait img',{scale:1.22,xPercent:-7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.9}});
+      gsap.utils.toArray('.work-art').forEach((el,i)=>{
+        gsap.fromTo(el,{y:70,scale:.92,rotate:i%2?-2:2,opacity:.35},{y:0,scale:1,rotate:0,opacity:1,duration:1.05,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 92%',end:'top 52%',scrub:1}});
+        gsap.to(el,{y:-24,scale:1.035,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1.2}});
+      });
+      gsap.utils.toArray('.work-head h3').forEach((el,i)=>gsap.from(el,{x:i%2?-45:45,opacity:0,skewX:i%2?5:-5,duration:.8,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none reverse'}}));
+      gsap.utils.toArray('.fact-row>div').forEach((el,i)=>gsap.from(el,{y:45,scale:.9,opacity:0,rotation:i%2?2:-2,duration:.6,delay:i*.05,ease:'back.out(1.7)',scrollTrigger:{trigger:'.fact-row',start:'top 88%',toggleActions:'play none none reverse'}}));
+      gsap.utils.toArray('.stack-row').forEach((el,i)=>gsap.from(el,{x:i%2?-45:45,opacity:0,duration:.75,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',toggleActions:'play none none reverse'}}));
+      gsap.utils.toArray('.stack-row b').forEach((el,i)=>gsap.from(el,{y:18,scale:.8,opacity:0,duration:.38,delay:(i%7)*.035,ease:'back.out(1.8)',scrollTrigger:{trigger:el.closest('.stack-row'),start:'top 90%',toggleActions:'play none none reverse'}}));
+      gsap.utils.toArray('.timeline-row').forEach((el,i)=>gsap.from(el,{x:i%2?-35:35,opacity:0,duration:.75,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none reverse'}}));
+      gsap.to('.journey .section-tag',{x:24,ease:'none',scrollTrigger:{trigger:'.journey',start:'top bottom',end:'bottom top',scrub:1}});
+      gsap.to('.contact-title',{y:-55,scale:1.04,ease:'none',scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:1}});
+      gsap.utils.toArray('.contact-bottom a').forEach((el,i)=>gsap.from(el,{x:30,opacity:0,duration:.55,delay:i*.08,scrollTrigger:{trigger:'.contact-bottom',start:'top 88%',toggleActions:'play none none reverse'}}));
+      ScrollTrigger.refresh();
+    });
+  }
+}
